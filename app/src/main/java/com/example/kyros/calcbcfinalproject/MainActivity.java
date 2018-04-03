@@ -1,12 +1,9 @@
 package com.example.kyros.calcbcfinalproject;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,11 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-    private SharedPreferences preferences;
+        implements NavigationView.OnNavigationItemSelectedListener,
+        InstructionFragment.EventHandler {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +84,26 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.instruction_fragment_item) {
             fragment = new InstructionFragment();
         } else if (id == R.id.saved_videos_fragment_item) {
-            fragment = new SavedVideosFragment();
+            //TODO: saved videos fragment
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void takeVideo(View view) {
+        //TODO: open camera and take video
+    }
+
+    @Override
+    public void showDetails(View view) {
+        //TODO: open details fragment to display calculations
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //TODO: save video to storage
     }
 }

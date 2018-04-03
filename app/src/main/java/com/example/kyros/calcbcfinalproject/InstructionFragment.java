@@ -7,7 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import com.example.kyros.calcbcfinalproject.databinding.InstructionFragmentBinding;
 
 /**
  * Created by Angela on 2/25/18.
@@ -18,25 +19,19 @@ public class InstructionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.instruction_fragment, container, false);
-        Button button = view.findViewById(R.id.fab);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCamera();
-            }
-        });
-        return view;
+        InstructionFragmentBinding binding = InstructionFragmentBinding.inflate(inflater, container, false);
+        try {
+            binding.setEventHandler((EventHandler) getActivity());
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Must implement InstructionFragment.EventHandler");
+        }
+        return binding.getRoot();
     }
 
-    private void openCamera() {
-        
-    }
+    public interface EventHandler {
 
-    public void showDetails(View view) {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new DetailFragment())
-                .addToBackStack(null)
-                .commit();
+        void takeVideo(View view);
+
+        void showDetails(View view);
     }
 }
