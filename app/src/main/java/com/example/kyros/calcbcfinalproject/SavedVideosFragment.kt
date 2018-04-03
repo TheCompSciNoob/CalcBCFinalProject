@@ -12,10 +12,11 @@ import android.view.ViewGroup
 class SavedVideosFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+/*        val binding = SavedVideosFragmentBinding.inflate(inflater, container, false)
+        //TODO: binding.setVariable()
+        //TODO: recyclerview
+        return binding.root*/
 
-    }
-
-    interface EventHandler {
-
+        return inflater.inflate(R.layout.saved_videos_fragment, container, false)
     }
 }
