@@ -14,9 +14,9 @@ class GraphFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        graphing_view.settings.apply {
-            javaScriptEnabled = true
+        graphing_view.apply {
+            settings.javaScriptEnabled = true
+            loadUrl("file:///android_res/raw/desmos_graphing.html")
         }
-        //TODO: call loadData() on WebView... how to html?
     }
 }
