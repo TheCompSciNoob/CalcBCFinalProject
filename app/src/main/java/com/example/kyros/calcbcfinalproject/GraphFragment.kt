@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.JavascriptInterface
 import kotlinx.android.synthetic.main.graph_fragment.*
 
 class GraphFragment : Fragment() {
@@ -19,4 +20,7 @@ class GraphFragment : Fragment() {
             loadUrl("file:///android_res/raw/desmos_graphing.html")
         }
     }
+
+    @JavascriptInterface
+    fun getFunction() : String = "y=x^2"
 }
