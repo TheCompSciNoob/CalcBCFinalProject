@@ -1,7 +1,10 @@
 package com.example.kyros.calcbcfinalproject;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -9,13 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         InstructionFragment.EventHandler {
+
+    private static final String LOG_TAG = "log tag";
+    private boolean cameraHardware;
+    static final int REQUEST_VIDEO_CAPTURE = 1234;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +46,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+//        cameraHardware = checkCameraHardware(this);
 
         //Not auto generated after this point
 
@@ -95,6 +112,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void takeVideo(View view) {
         //TODO: open camera and take video
+        dispatchTakeVideoIntent();
     }
 
     @Override
@@ -105,5 +123,93 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //TODO: save video to storage
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            Uri videoUri = data.getData();
+
+            if(isExternalStorageWritable()) {
+
+                boolean success = false;
+
+                //Save to storage
+                File vidDir = getPublicAlbumStorageDir("Calc BC");
+
+                Random generator = new Random();
+                int n = 100;
+                n = generator.nextInt(n);
+
+                String videoName = "Video_" + n + ".mp4";
+                File fileVideo = new File(vidDir.getAbsolutePath(), videoName);
+
+                try {
+                    fileVideo.createNewFile();
+                    success = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (success) {
+                    Toast.makeText(getApplicationContext(), "Video saved!",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "Error during video saving", Toast.LENGTH_LONG).show();
+                }
+
+            }
+            else {
+                Toast.makeText(this, "Storage Unavailable", Toast.LENGTH_SHORT).show();
+            }
+//            mVideoView.setVideoURI(videoUri);
+        }
     }
+
+    private void dispatchTakeVideoIntent() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+    }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    public File getPublicAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            Log.e(LOG_TAG, "Directory not created");
+        }
+        return file;
+    }
+
+//    private void saveFile(Uri sourceUri, File destination)
+//    try {
+//        File source = new File(sourceUri.getPath());
+//        FileChannel src = new FileInputStream(source).getChannel();
+//        FileChannel dst = new FileOutputStream(destination).getChannel();
+//        dst.transferFrom(src, 0, src.size());
+//        src.close();
+//        dst.close();
+//    } catch (IOException ex) {
+//        ex.printStackTrace();
+//    }
 }
+
+//    /** Check if this device has a camera */
+//    private boolean checkCameraHardware(Context context) {
+//        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+//            // this device has a camera
+//            return true;
+//        } else {
+//            // no camera on this device
+//            return false;
+//        }
+//    }
+

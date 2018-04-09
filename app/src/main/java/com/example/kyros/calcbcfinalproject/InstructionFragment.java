@@ -16,6 +16,8 @@ import com.example.kyros.calcbcfinalproject.databinding.InstructionFragmentBindi
 
 public class InstructionFragment extends Fragment {
 
+//    static final int REQUEST_VIDEO_CAPTURE = 1;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,4 +36,20 @@ public class InstructionFragment extends Fragment {
 
         void showDetails(View view);
     }
+
+
+//    private void dispatchTakeVideoIntent() {
+//        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//        if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+//            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+//        }
+//    }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+//            Uri videoUri = intent.getData();
+//            mVideoView.setVideoURI(videoUri);
+//        }
+//    }
 }
