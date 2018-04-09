@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
         //start new fragment if activity is relaunched
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new InstructionFragment())
+                    .replace(R.id.fragment_container, new GraphFragment())
                     .commit();
         }
     }
