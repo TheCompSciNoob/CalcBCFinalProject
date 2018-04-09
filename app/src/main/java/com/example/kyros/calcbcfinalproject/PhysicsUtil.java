@@ -6,8 +6,8 @@ public class PhysicsUtil {
 
     public PhysicsUtil(String x, String y)
     {
-        this.x = x;
         this.y = y;
+        this.x = x;
     }
     //assigning values to a, b, c, d, e, and f
     public void parse()
