@@ -47,5 +47,10 @@ public class DetailFragment extends Fragment {
         });
 
         super.onViewCreated(view, savedInstanceState);
+
+        videoView.setVideoURI(InstructionFragment.getURI());
     }
+
+
+
 }
