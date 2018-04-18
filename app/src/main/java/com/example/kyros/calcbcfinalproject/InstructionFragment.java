@@ -23,8 +23,6 @@ import com.example.kyros.calcbcfinalproject.databinding.InstructionFragmentBindi
 public class InstructionFragment extends Fragment {
 
     static final int REQUEST_VIDEO_CAPTURE = 1234;
-    private FloatingActionButton takeVidFAB;
-    private Uri uri;
 
     @Nullable
     @Override
@@ -35,15 +33,6 @@ public class InstructionFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException("Must implement InstructionFragment.EventHandler");
         }
-
-        takeVidFAB = (FloatingActionButton) getView().findViewById(R.id.take_video_fab);
-        takeVidFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakeVideoIntent();
-            }
-        });
-
         return binding.getRoot();
 
     }
@@ -53,25 +42,5 @@ public class InstructionFragment extends Fragment {
         void takeVideo(View view);
 
         void showDetails(View view);
-    }
-
-
-    private void dispatchTakeVideoIntent() {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-            uri = intent.getData();
-
-        }
-    }
-
-    public static Uri getURI() {
-        return uri;
     }
 }

@@ -26,29 +26,10 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        VideoView videoView = getView().findViewById(R.id.videoView);
-
-        SeekBar seekBar = getView().findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //switch frames of video
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //itchanges
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         super.onViewCreated(view, savedInstanceState);
 
-        videoView.setVideoURI(InstructionFragment.getURI());
+        VideoView videoView = getView().findViewById(R.id.videoView);
+        videoView.setVideoURI(((MainActivity) getActivity()).getVideoUri());
     }
 
 
