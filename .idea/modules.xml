@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CalcBCFinalProject.iml" filepath="$PROJECT_DIR$/CalcBCFinalProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/CalcBCFinalProject.iml" filepath="$PROJECT_DIR$/.idea/CalcBCFinalProject.iml" />
+      <module fileurl="file://C:\Users\Max\StudioProjects\CalcBCFinalProject\CalcBCFinalProject.iml" filepath="C:\Users\Max\StudioProjects\CalcBCFinalProject\CalcBCFinalProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
