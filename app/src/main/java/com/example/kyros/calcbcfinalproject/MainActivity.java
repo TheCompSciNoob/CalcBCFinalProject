@@ -7,21 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements InstructionFragment.EventHandler {
 
     private static final int REQUEST_VIDEO_CAPTURE = 1234;
     private static final String LOG_TAG = "log tag";
-    private boolean cameraHardware;
     private Uri videoUri;
-    private List<String> videoFilenames = new ArrayList<>();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +76,15 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return result;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStackImmediate(InstructionFragment.VIDEO_FRAGMENT_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }
 
