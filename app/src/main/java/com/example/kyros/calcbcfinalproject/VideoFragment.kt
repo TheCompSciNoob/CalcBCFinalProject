@@ -57,7 +57,18 @@ class VideoFragment : Fragment() {
     }
 
     fun generateEquationsButtonClick(view: View) {
-        //TODO: start new fragment and generate equations
-        Log.d("test", "its working")
+        //VideoFragment and variables
+        val fragment = GraphFragment().apply {
+            //TODO: change equations to paramaetric
+            testEquation = "y=x^2"
+        }
+        //pop old fragment and replace
+        fragmentManager?.apply {
+            popBackStack()
+            beginTransaction()
+                    .replace(R.id.fragment_container, GraphFragment())
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 }

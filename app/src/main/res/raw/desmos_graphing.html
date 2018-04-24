@@ -14,9 +14,10 @@
                 style="width: 400px; height: 400px;"></div>
 
         <script>
+        var javaEquation = equationGetter.getLatex();
         var elt = document.getElementById('calculator');
         var calculator = Desmos.GraphingCalculator(elt);
-            calculator.setExpression({id:'graph1', latex:'y=x^2'});
+            calculator.setExpression({id:'graph1', latex:javaEquation});
 
         </script>
     </body>

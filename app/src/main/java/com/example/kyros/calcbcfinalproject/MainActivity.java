@@ -16,8 +16,7 @@ public class MainActivity extends AppCompatActivity
         implements InstructionFragment.EventHandler {
 
     private static final int REQUEST_VIDEO_CAPTURE = 1234;
-    private static final String LOG_TAG = "log tag";
-    private Uri videoUri;
+    private static final String TAG = "MainActivity", DIRECTORY_NAME = "Physics App";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +48,18 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
-            videoUri = data.getData();
+            /*videoUri = data.getData();
             String filename = getFileName(videoUri);
-            Log.d(LOG_TAG, "video taken, filename: " + filename);
+            Log.d(LOG_TAG, "video taken, filename: " + filename);*/
+            //TODO: save to directory using getPublicVideoStorageDir()
         }
     }
 
-    public Uri getVideoUri() {
+    /*public Uri getVideoUri() {
         return videoUri;
-    }
+    }*/
 
-    private String getFileName(Uri uri) {
+    /*private String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
             try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
@@ -76,15 +76,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return result;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            super.onBackPressed();
-        } else {
-            getSupportFragmentManager().popBackStackImmediate(InstructionFragment.VIDEO_FRAGMENT_STACK, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
+    }*/
 }
 
