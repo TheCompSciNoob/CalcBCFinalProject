@@ -64,9 +64,6 @@ public class InstructionFragment extends Fragment implements VideosRecyclerViewA
     }
 
     public interface EventHandler {
-
         void takeVideo(View view);
-
-        void showDetails(View view);
     }
 }
