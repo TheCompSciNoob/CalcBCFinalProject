@@ -44,12 +44,10 @@ public class InstructionFragment extends Fragment implements VideosRecyclerViewA
         super.onViewCreated(view, savedInstanceState);
 
         //recyclerview
-        RecyclerView recyclerView = view.findViewById(R.id.videos_recycler_view);
-        ArrayList<VideosRecyclerViewAdapter.VideoInfo> items = new ArrayList<>();
-        items.add(new VideosRecyclerViewAdapter.VideoInfo("test.mp4"));
+        /*RecyclerView recyclerView = view.findViewById(R.id.videos_recycler_view);
         VideosRecyclerViewAdapter adapter = new VideosRecyclerViewAdapter(items, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
     }
 
     @Override

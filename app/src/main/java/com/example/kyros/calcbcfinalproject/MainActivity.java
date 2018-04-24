@@ -2,15 +2,22 @@ package com.example.kyros.calcbcfinalproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity
         implements InstructionFragment.EventHandler {
@@ -47,11 +54,34 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
+        Log.d(TAG, "onActivityResult: OUTISIDE IF");
+        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK && FileUtilKt.isExternalStorageWritable()) {
+            Log.d(TAG, "onActivityResult: I'M HERE");
             /*videoUri = data.getData();
+           
             String filename = getFileName(videoUri);
             Log.d(LOG_TAG, "video taken, filename: " + filename);*/
             //TODO: save to directory using getPublicVideoStorageDir()
+            try {
+                AssetFileDescriptor videoAsset = getContentResolver().openAssetFileDescriptor(data.getData(), "r");
+                FileInputStream fis = videoAsset.createInputStream();
+                File root = new File(Environment.getExternalStorageDirectory(), "Physics App");
+                if (!root.exists()) {
+                    root.mkdirs();
+                }
+                File file = new File(root, "physics_app_" + System.currentTimeMillis() + ".mp4");
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = fis.read(buf)) > 0) {
+                    fos.write(buf, 0, len);
+                }
+                Log.d(TAG, "onActivityResult: " + root.toString());
+                fis.close();
+                fos.close();
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
         }
     }
 
