@@ -53,4 +53,24 @@ public class PhysicsUtil {
 
         return finalValue;
     }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public double getC() {
+        return c;
+    }
+
+    public double getD() {
+        return d;
+    }
+
+    public double getE() {
+        return e;
+    }
 }
