@@ -20,11 +20,12 @@ class VideosRecyclerViewAdapter(val videoPaths: List<String>, val itemListener: 
 
     override fun onBindViewHolder(holder: Holder, pos: Int) = with(holder.binding) {
         listener = itemListener
-        filename = "file://${videoPaths[pos]}"
+        filename = videoPaths[pos]
         position = pos
         executePendingBindings()
-        val thumbnail = ThumbnailUtils.createVideoThumbnail("file://$filename", MediaStore.Video.Thumbnails.MINI_KIND)
-        root.imageView.setImageBitmap(thumbnail)
+        ThumbnailUtils.createVideoThumbnail(filename, MediaStore.Video.Thumbnails.MINI_KIND).let {
+            root.imageView.setImageBitmap(it)
+        }
     }
 
     class Holder(val binding: SavedVideoItemBinding): RecyclerView.ViewHolder(binding.root) {}
