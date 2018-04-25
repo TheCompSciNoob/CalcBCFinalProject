@@ -3,6 +3,7 @@ package com.example.kyros.calcbcfinalproject
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -11,9 +12,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.example.kyros.calcbcfinalproject.databinding.InstructionFragmentBinding
 import kotlinx.android.synthetic.main.instruction_fragment.*
+import java.io.File
 
 
 /**
@@ -49,44 +52,10 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK) {
             //TODO: save to directory using getPublicVideoStorageDir()
             updateRecyclerView()
-            /*try {
-                val videoAsset = context?.contentResolver?.openAssetFileDescriptor(data?.data!!, "r")
-                val fis = videoAsset!!.createInputStream()
-                val root = File(Environment.getExternalStorageDirectory(), DIRECTORY_NAME)
-                if (!root.exists()) {
-                    root.mkdirs()
-                }
-                var file: File
-                file = File(root, "physics_app_${System.currentTimeMillis()}.mp4")
-                val fos = FileOutputStream(file)
-                val buf = ByteArray(1024)
-                var len: Int
-                do {
-                    len = fis.read(buf)
-                    fos.write(buf, 0, len)
-                } while (len > 0)
-                Log.d(TAG, "onActivityResult: $root")
-                fis.close()
-                fos.close()
-                //updates RecyclerView after videos are added
-                updateRecyclerView()
-            } catch (e: Exception) {
-                Log.e(TAG, e.message)
-            }*/
         }
     }
 
     private fun updateRecyclerView() {
-        /*val videoFiles = File(Environment.getExternalStorageDirectory(), DIRECTORY_NAME)
-        Log.d(TAG, videoFiles.toString())
-        if (videoFiles.isDirectory) {
-            videoPaths.clear()
-            videoFiles.list()
-                    .filter { it.endsWith(".mp4") }
-                    .map { VideosRecyclerViewAdapter.VideoInfo(it) }
-                    .let { videoPaths.addAll(it) }
-            videos_recycler_view.adapter.notifyDataSetChanged()
-        }*/
         val uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.Video.VideoColumns.DATA)
         val c = context?.contentResolver?.query(uri, projection, null, null, null)
@@ -120,7 +89,10 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
     }
 
     override fun onDeleteClick(view: View, position: Int) {
-        //TODO: later
+        //val file = File("file://${videoPaths[position]}")
+        //context?.deleteFile(videoPaths[position].substringAfterLast('/'))
+        val file = File(Environment.getExternalStorageDirectory(), videoPaths[position].substringAfterLast('/'))
+        if (file.delete()) updateRecyclerView() else Toast.makeText(context, "Delete Failed", Toast.LENGTH_SHORT).show()
     }
 
     companion object {
