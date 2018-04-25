@@ -2,6 +2,7 @@ package com.example.kyros.calcbcfinalproject
 
 import android.app.Activity
 import android.content.Intent
+import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -31,7 +32,6 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = InstructionFragmentBinding.inflate(inflater, container, false)
         binding.fragment = this
-
         return binding.root
     }
 
