@@ -38,7 +38,6 @@ public class PhysicsUtil {
     {
         double yValues = 0;
 
-        //TODO: check if correct
         for (int i = 0; i < 99; i++)
         {
             double tempTime = (t * ((i+1) / 100));
@@ -54,5 +53,29 @@ public class PhysicsUtil {
         yValues += java.lang.Math.sqrt((4 * a * a * t * t) + (4 * a * b * t) + (b * b) + (4 * d * d * t * t) + (4 * d * e * t) + (e * e));
 
         return (0.5 * (t / 100) * (yValues));
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public double getC() {
+        return c;
+    }
+
+    public double getD() {
+        return d;
+    }
+
+    public double getE() {
+        return e;
+    }
+
+    public double getF() {
+        return f;
     }
 }
