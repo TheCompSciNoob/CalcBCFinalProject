@@ -75,8 +75,6 @@ class VideoFragment : Fragment() {
         //Regression
         val xCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.x.roundToInt() }.toIntArray())
         val yCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.y.roundToInt() }.toIntArray())
-        val xPar = xCoeffs.let { "${xCoeffs[0].roundToInt()}t^2+${xCoeffs[1].roundToInt()}t+${xCoeffs[2].roundToInt()}" }
-        val yPar = xCoeffs.let { "${yCoeffs[0].roundToInt()}t^2+${yCoeffs[1].roundToInt()}t+${yCoeffs[2].roundToInt()}" }
         //VideoFragment
         val bundle = Bundle().apply {
             putDouble(GraphFragment.X_A, xCoeffs[0])
