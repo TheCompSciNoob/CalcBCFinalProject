@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,6 +39,7 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
         videos_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = VideosRecyclerViewAdapter(videoPaths, this@InstructionFragment)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
         updateRecyclerView()
     }
@@ -92,8 +94,8 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
             videoPaths.clear()
             while (it.moveToNext()) {
                 //TODO: fix the video path
-                videoPaths.add(it.getString(0).substringAfterLast('/'))
-                Log.d(TAG, it.getString(0).substringAfterLast('/'))
+                videoPaths.add(it.getString(0))
+                Log.d(TAG, it.getString(0))
             }
             videos_recycler_view.adapter.notifyDataSetChanged()
         }

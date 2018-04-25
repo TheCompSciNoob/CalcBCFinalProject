@@ -17,11 +17,11 @@ object PolynomialRegression {
     fun polyRegression(x: IntArray, y: IntArray): DoubleArray {
         val n = x.size
         val r = IntArray(n){ it }
-        val xm = Arrays.stream(x).average().orElse(java.lang.Double.NaN)
-        val ym = Arrays.stream(y).average().orElse(java.lang.Double.NaN)
-        val x2m = Arrays.stream(r).map { a -> a * a }.average().orElse(java.lang.Double.NaN)
-        val x3m = Arrays.stream(r).map { a -> a * a * a }.average().orElse(java.lang.Double.NaN)
-        val x4m = Arrays.stream(r).map { a -> a * a * a * a }.average().orElse(java.lang.Double.NaN)
+        val xm = x.average()
+        val ym = y.average()
+        val x2m = r.map { it * it }.average()
+        val x3m = r.map { it * it * it }.average()
+        val x4m = r.map { it * it * it * it }.average()
         var xym = 0.0
         run {
             var i = 0
