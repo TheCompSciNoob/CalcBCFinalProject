@@ -34,6 +34,7 @@ public class PhysicsUtil {
     {
         double yValues = 0;
 
+        //TODO: check if correct
         for (int i = 0; i < 99; i++)
         {
             double w = (t * ((i+1) / 100));
