@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.kyros.calcbcfinalproject.databinding.SavedVideoItemBinding
 
-class VideosRecyclerViewAdapter(val videoInfos: List<VideoInfo>, val itemListener: OnRecyclerViewClickListener): RecyclerView.Adapter<VideosRecyclerViewAdapter.Holder>() {
+class VideosRecyclerViewAdapter(val videoPaths: List<String>, val itemListener: OnRecyclerViewClickListener): RecyclerView.Adapter<VideosRecyclerViewAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         return Holder(SavedVideoItemBinding.inflate(inflater, parent, false))
     }
 
-    override fun getItemCount(): Int = videoInfos.size
+    override fun getItemCount(): Int = videoPaths.size
 
     override fun onBindViewHolder(holder: Holder, pos: Int) = with(holder.binding) {
         listener = itemListener
-        videoInfo = videoInfos[pos]
+        filename = videoPaths[pos]
         position = pos
         executePendingBindings()
     }

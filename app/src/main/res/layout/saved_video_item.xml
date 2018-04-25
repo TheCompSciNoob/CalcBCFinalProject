@@ -9,8 +9,8 @@
             type="com.example.kyros.calcbcfinalproject.VideosRecyclerViewAdapter.OnRecyclerViewClickListener" />
 
         <variable
-            name="videoInfo"
-            type="com.example.kyros.calcbcfinalproject.VideosRecyclerViewAdapter.VideoInfo" />
+            name="filename"
+            type="String" />
 
         <variable
             name="position"
@@ -19,7 +19,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
@@ -38,7 +38,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{videoInfo.filename}"
+            android:text="@{filename}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />

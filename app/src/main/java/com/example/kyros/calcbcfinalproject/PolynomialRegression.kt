@@ -13,9 +13,10 @@ import android.content.ContentValues.TAG
  */
 
 object PolynomialRegression {
+    @JvmStatic
     fun polyRegression(x: IntArray, y: IntArray): DoubleArray {
         val n = x.size
-        val r = IntStream.range(0, n).toArray()
+        val r = IntArray(n){ it }
         val xm = Arrays.stream(x).average().orElse(java.lang.Double.NaN)
         val ym = Arrays.stream(y).average().orElse(java.lang.Double.NaN)
         val x2m = Arrays.stream(r).map { a -> a * a }.average().orElse(java.lang.Double.NaN)

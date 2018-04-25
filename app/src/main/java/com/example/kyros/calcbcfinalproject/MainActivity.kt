@@ -1,25 +1,9 @@
 package com.example.kyros.calcbcfinalproject
 
-import android.app.Activity
-import android.content.Intent
-import android.content.res.AssetFileDescriptor
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.provider.OpenableColumns
-import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.View
 
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-
-class MainActivity : AppCompatActivity(), InstructionFragment.EventHandler {
+class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,51 +18,8 @@ class MainActivity : AppCompatActivity(), InstructionFragment.EventHandler {
         }
     }
 
-    override fun takeVideo(view: View) {
-        val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-        if (takeVideoIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == Activity.RESULT_OK && isExternalStorageWritable()) {
-            /*videoUri = data.getData();
-
-            String filename = getFileName(videoUri);
-            Log.d(LOG_TAG, "video taken, filename: " + filename);*/
-            //TODO: save to directory using getPublicVideoStorageDir()
-            try {
-                val videoAsset = contentResolver.openAssetFileDescriptor(data.data!!, "r")
-                val fis = videoAsset!!.createInputStream()
-                val root = File(Environment.getExternalStorageDirectory(), DIRECTORY_NAME)
-                if (!root.exists()) {
-                    root.mkdirs()
-                }
-                val file = File(root, "physics_app_" + System.currentTimeMillis() + ".mp4")
-                val fos = FileOutputStream(file)
-                val buf = ByteArray(1024)
-                var len: Int
-                do {
-                    len = fis.read(buf)
-                    fos.write(buf, 0, len)
-                } while (len > 0)
-                Log.d(TAG, "onActivityResult: $root")
-                fis.close()
-                fos.close()
-            } catch (e: Exception) {
-                Log.e(TAG, e.message)
-            }
-
-        }
-    }
-
     companion object {
-
-        private val REQUEST_VIDEO_CAPTURE = 1234
         private val TAG = "MainActivity"
-        private val DIRECTORY_NAME = "Physics App"
     }
 
     /*public Uri getVideoUri() {
