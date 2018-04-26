@@ -11,32 +11,41 @@
     <body>
         <div id="calculator" style="width:100vw;height:100vh"></div>
         <script>
-
         var elt = document.getElementById('calculator');
-        var calculator = Desmos.GraphingCalculator(elt, {border:false});
-            calculator.setExpression({
-                type: 'table',
-                columns: [
-                    {
-                        latex: 't_1',
-                        hidden = true,
-                        values: equationGetter.getTArray()
-                    },
-                    {
-                        latex: 'x_1',
-                        hidden = true,
-                        values: equationGetter.getXArray()
-                    },
-                    {
-                        latex: 'y_1',
-                        hidden = true,
-                        values: equationGetter.getYArray()
-                    }
-                ]
-                });
-             calculator.setExpression({id:'xRegression', latex:'x_1~at_1^2+bt_1+c'})
-             calculator.setExpression({id:'yRegression', latex:'y_1~dt_1^2+et_1+f'})
-             calculator.setExpression({id:'parametric', latex:'\left(at^2+bt+c,dt^2+et+f\right)'})
+        var tArr = JSON.parse(equationGetter.getTArray());
+        var xArr = JSON.parse(equationGetter.getXArray());
+        var yArr = JSON.parse(equationGetter.getYArray());
+        var calculator = Desmos.GraphingCalculator(elt);
+        calculator.setMathBounds({
+  left: 0,
+  right: 1000,
+  bottom: 0,
+  top: 1000
+});
+
+                calculator.setExpression({
+  type: 'table',
+  columns: [
+    {
+      latex: 't_1',
+      values: tArr,
+      hidden: true
+    },
+    {
+      latex: 'x_1',
+      values: xArr,
+      hidden: true
+    },
+    {
+      latex: 'y_1',
+      values: yArr,
+      hidden: true
+    }
+  ]
+});
+             calculator.setExpression({id:'xRegression', latex:'x_1~at_1^2+bt_1+c', hidden:true})
+             calculator.setExpression({id:'yRegression', latex:'y_1~dt_1^2+et_1+f', hidden:true})
+             calculator.setExpression({id:'parametric', latex:'(at^2+bt+c,dt^2+et+f)'})
 
         </script>
     </body>

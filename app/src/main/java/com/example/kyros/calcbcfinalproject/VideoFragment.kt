@@ -87,7 +87,7 @@ class VideoFragment : Fragment() {
         val bundle = Bundle().apply {
             putParcelableArrayList(GraphFragment.PARAMETRIC_POINTS_KEY, pointsList)
         }
-        val fragment = GraphFragment()
+        val fragment = GraphFragment().apply { arguments = bundle }
         //pop old fragment and replace
         fragmentManager?.apply {
             popBackStack()
