@@ -12,10 +12,31 @@
         <div id="calculator" style="width:100vw;height:100vh"></div>
         <script>
 
-        var javaEquation = equationGetter.getLatex();
         var elt = document.getElementById('calculator');
         var calculator = Desmos.GraphingCalculator(elt, {border:false});
-            calculator.setExpression({id:'graph1', latex:javaEquation});
+            calculator.setExpression({
+                type: 'table',
+                columns: [
+                    {
+                        latex: 't_1',
+                        hidden = true,
+                        values: equationGetter.getTArray()
+                    },
+                    {
+                        latex: 'x_1',
+                        hidden = true,
+                        values: equationGetter.getXArray()
+                    },
+                    {
+                        latex: 'y_1',
+                        hidden = true,
+                        values: equationGetter.getYArray()
+                    }
+                ]
+                });
+             calculator.setExpression({id:'xRegression', latex:''})
+             calculator.setExpression({id:'yRegression', latex:''})
+             calculator.setExpression({id:'parametric', latex:''})
 
         </script>
     </body>

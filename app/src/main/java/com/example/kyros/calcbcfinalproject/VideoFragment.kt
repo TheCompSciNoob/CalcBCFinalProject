@@ -1,7 +1,6 @@
 package com.example.kyros.calcbcfinalproject
 
 import android.arch.lifecycle.MutableLiveData
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -13,8 +12,6 @@ import android.widget.MediaController
 import android.widget.VideoView
 import com.example.kyros.calcbcfinalproject.databinding.VideoFragmentBinding
 import kotlinx.android.synthetic.main.video_fragment.*
-import java.io.File
-import kotlin.math.roundToInt
 
 class VideoFragment : Fragment() {
 
@@ -73,7 +70,7 @@ class VideoFragment : Fragment() {
 
     fun generateEquationsButtonClick(view: View) {
         //Regression
-        val xCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.x.roundToInt() }.toIntArray())
+        /*val xCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.x.roundToInt() }.toIntArray())
         val yCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.y.roundToInt() }.toIntArray())
         //VideoFragment
         val bundle = Bundle().apply {
@@ -86,7 +83,11 @@ class VideoFragment : Fragment() {
         }
         val fragment = GraphFragment().apply {
             arguments = bundle
+        }*/
+        val bundle = Bundle().apply {
+            putParcelableArrayList(GraphFragment.PARAMETRIC_POINTS_KEY, pointsList)
         }
+        val fragment = GraphFragment()
         //pop old fragment and replace
         fragmentManager?.apply {
             popBackStack()

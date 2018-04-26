@@ -2,14 +2,15 @@ package com.example.kyros.calcbcfinalproject;
 
 public class PhysicsUtil {
     //    private String x, y;
-    private double a, b, c, d, e;
+    private double a, b, c, d, e, f;
 
-    public PhysicsUtil(double a, double b, double c, double d, double e) {
+    public PhysicsUtil(double a, double b, double c, double d, double e, double f) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
         this.e = e;
+        this.f = f;
     }
     //assigning values to a, b, c, d, e, and f
 //    public void parse()
@@ -72,5 +73,9 @@ public class PhysicsUtil {
 
     public double getE() {
         return e;
+    }
+
+    public double getF() {
+        return f;
     }
 }
