@@ -2,9 +2,7 @@ package com.example.kyros.calcbcfinalproject
 
 import android.app.Activity
 import android.content.Intent
-import android.media.ThumbnailUtils
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
@@ -13,11 +11,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import com.bumptech.glide.Glide
 
 import com.example.kyros.calcbcfinalproject.databinding.InstructionFragmentBinding
 import kotlinx.android.synthetic.main.instruction_fragment.*
-import java.io.File
+import kotlinx.android.synthetic.main.saved_video_item.view.*
 
 
 /**
@@ -25,7 +23,7 @@ import java.io.File
  */
 
 
-class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerViewClickListener {
+class InstructionFragment : Fragment() {
 
     private val videoPaths = arrayListOf<String>()
 
@@ -41,8 +39,27 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
         //recyclerview
         videos_recycler_view.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = VideosRecyclerViewAdapter(videoPaths, this@InstructionFragment)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            //adapter = VideosRecyclerViewAdapter(videoPaths, this@InstructionFragment)
+            adapter = VideosRecyclerViewAdapter(R.layout.saved_video_item, videoPaths) { path ->
+                Glide.with(this).load(path).into(video_thumbnail)
+                video_file_name.text = path
+                view_item_button.setOnClickListener {
+                    val args = Bundle().apply {
+                        putString(VideoFragment.VIDEO_PATH_KEY, path)
+                    }
+                    val fragment = VideoFragment().apply {
+                        arguments = args
+                    }
+                    fragmentManager!!.beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit()
+                }
+                delete_item_button.setOnClickListener {
+                    //TODO: add delete functionality
+                }
+            }
         }
         updateRecyclerView()
     }
@@ -76,23 +93,6 @@ class InstructionFragment : Fragment(), VideosRecyclerViewAdapter.OnRecyclerView
         if (takeVideoIntent.resolveActivity(context?.packageManager) != null) {
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
         }
-    }
-
-    override fun onItemClick(view: View, position: Int) {
-        val fragment = VideoFragment().apply {
-            videoPath = videoPaths[position]
-        }
-        fragmentManager!!.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit()
-    }
-
-    override fun onDeleteClick(view: View, position: Int) {
-        //val file = File("file://${videoPaths[position]}")
-        //context?.deleteFile(videoPaths[position].substringAfterLast('/'))
-        val file = File(Environment.getExternalStorageDirectory(), videoPaths[position].substringAfterLast('/'))
-        if (file.delete()) updateRecyclerView() else Toast.makeText(context, "Delete Failed", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

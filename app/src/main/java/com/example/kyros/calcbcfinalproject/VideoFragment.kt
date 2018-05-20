@@ -20,7 +20,13 @@ class VideoFragment : Fragment() {
     private var isVideoPlaying = false
 
     //video path
-    lateinit var videoPath : String
+    private val videoPath : String by lazy {
+        arguments?.getString(VIDEO_PATH_KEY) ?: throw IllegalStateException("no video path")
+    }
+
+    companion object {
+        const val VIDEO_PATH_KEY = "video path key"
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
