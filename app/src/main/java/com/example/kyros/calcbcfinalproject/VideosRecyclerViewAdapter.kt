@@ -36,5 +36,5 @@ class VideosRecyclerViewAdapter(val videoPaths: List<String>, val itemListener: 
         fun onItemClick(view: View, position: Int)
 
         fun onDeleteClick(view: View, position: Int)
-    }
+    }//
 }
