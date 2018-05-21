@@ -33,7 +33,7 @@ class GraphFragment2: Fragment() {
         }
         val bfX = fitterX.bestFit
         val bfY = fitterY.bestFit
-        val util = PhysicsUtil(bfX[0], bfX[1], bfX[2], bfY[0], bfY[1], bfY[2])
+        val util = PhysicsUtil(bfX[2], bfX[1], bfX[0], bfY[2], bfY[1], bfY[0])
         val plotPoints = util.createPlotPoints(10, rawPoints.first().t, rawPoints.last().t - rawPoints.first().t)
         graphing_view.points = plotPoints
 
