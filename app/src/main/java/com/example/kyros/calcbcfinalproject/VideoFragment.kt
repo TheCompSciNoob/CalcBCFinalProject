@@ -75,26 +75,24 @@ class VideoFragment : Fragment() {
     }
 
     fun generateEquationsButtonClick(view: View) {
-        //Regression
-        /*val xCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.x.roundToInt() }.toIntArray())
-        val yCoeffs = PolynomialRegression.polyRegression(pointsList.map { it.t.roundToInt() }.toIntArray(), pointsList.map { it.y.roundToInt() }.toIntArray())
-        //VideoFragment
-        val bundle = Bundle().apply {
-            putDouble(GraphFragment.X_A, xCoeffs[0])
-            putDouble(GraphFragment.X_B, xCoeffs[1])
-            putDouble(GraphFragment.X_C, xCoeffs[2])
-            putDouble(GraphFragment.Y_A, yCoeffs[0])
-            putDouble(GraphFragment.Y_B, yCoeffs[1])
-            putDouble(GraphFragment.Y_C, yCoeffs[2])
-        }
-        val fragment = GraphFragment().apply {
-            arguments = bundle
-        }*/
-        val bundle = Bundle().apply {
+        /*val bundle = Bundle().apply {
             putParcelableArrayList(GraphFragment.PARAMETRIC_POINTS_KEY, pointsList)
         }
         val fragment = GraphFragment().apply { arguments = bundle }
         //pop old fragment and replace
+        fragmentManager?.apply {
+            popBackStack()
+            beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+        }*/
+        val bundle = Bundle().apply {
+            putParcelableArrayList(GraphFragment2.RAW_POINTS_KEY, pointsList)
+        }
+        val fragment = GraphFragment2().apply {
+            arguments = bundle
+        }
         fragmentManager?.apply {
             popBackStack()
             beginTransaction()

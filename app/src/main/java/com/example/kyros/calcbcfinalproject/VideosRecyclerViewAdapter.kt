@@ -1,13 +1,9 @@
 package com.example.kyros.calcbcfinalproject
 
-import android.media.ThumbnailUtils
-import android.provider.MediaStore
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.kyros.calcbcfinalproject.databinding.SavedVideoItemBinding
-import kotlinx.android.synthetic.main.saved_video_item.view.*
 
 class VideosRecyclerViewAdapter<T>(val layoutRes : Int, val items: List<T>, private val bind: View.(T) -> Unit): RecyclerView.Adapter<VideosRecyclerViewAdapter.Holder>() {
 

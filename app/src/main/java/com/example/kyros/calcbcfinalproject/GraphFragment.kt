@@ -58,8 +58,6 @@ class GraphFragment : Fragment() {
     fun getYArray() = parametricPoints.map { it.y.toString() }.let { JSONArray(it).toString() }
 
     class EquationGetter (val points: List<ParametricPoint>) {
-
-
     }
 
     private fun PhysicsUtil.getXParametric() = "${a.roundToInt()}t^2+${b.roundToInt()}t+${c.roundToInt()}"
